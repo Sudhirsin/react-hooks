@@ -76,3 +76,62 @@ The useState hook return an array with 2 elements
 The First element in the current value of the state, and the second element in a state setter function.
 New State value depends on he previous state value?  You can pass a fucntion to the setter funtion.
 When dealing wiht objects or array, always make sure to spread your state variable and then call the setter function.
+
+
+### useEffect
+The Effect Hook lets you perform side effects in functional components
+
+It is close replacement for componentDidMount, componentDidUpdate and componentWillUnmount
+
+#### useEffect after render
+useEffect is also a function we simply call it.In useefect we pass parameter.
+Parameter is function which gets executed after every render of the component.
+
+useEffect(() => {
+    document.title = `You clicked ${count} times`
+})
+
+useEffect run after every render
+
+#### Conditionally run effects
+useEffect(() => {
+    // runs on every render its not optimal
+    console.log('useEffect - Updating document title')
+    document.title = `You clicked ${count} times`
+}, [count])
+
+useEffect depends on [] of values for condition render.
+
+### Run effect only once
+componentDidMount in hook with passing [] in useEffect 2nd arguments
+useEffect(() => {
+    console.log('useEffect callled')
+    window.addEventListener('mousemove', logMousePosition)
+}, [])
+
+### useEffect with cleanup (componentWillUnmount)
+useEffect function return a function where we can remove the event.
+
+useEffect(() => {
+    console.log('useEffect callled')
+    window.addEventListener('mousemove', logMousePosition)
+
+    // cleanup --> willUnmount
+    return () => {
+        console.log('component ummounting')
+        window.removeEventListener('mousemove', logMousePosition)
+    }
+}, [])
+
+#### Fetching data with useEffect
+Fetching data on didMount
+
+useEffect(() => {
+    axios.get('https://jsonplaceholder.typicode.com/posts')
+    .then(res => {
+        setPosts(res.data)
+        console.log(res)
+    }).catch(err => {
+        console.log(err)
+    })
+}, [])
