@@ -7,6 +7,7 @@ import React, { useReducer } from 'react';
 import ComponentA from './component/useReducer/ComponentA';
 import ComponentB from './component/useReducer/ComponentB';
 import ComponentC from './component/useReducer/ComponentC';
+import DataFetchingTwo from './component/useReducer/DataFetchingTwo';
 // import DataFetching from './component/UseEffect/DataFetching';
 // import HookCounter from './component/HookCounter';
 // import HookCounterTwo from './component/HookCounterTwo';
@@ -67,12 +68,14 @@ function App() {
 
 
 
-      <div>Count - {count}</div>
+      {/* <div>Count - {count}</div>
       <CountContext.Provider value={{countState: count, countDispatch: dispatch}}>
         <ComponentA />
         <ComponentB />
         <ComponentC />
-      </CountContext.Provider>
+      </CountContext.Provider> */}
+
+      <DataFetchingTwo />
 
     </div>
   );

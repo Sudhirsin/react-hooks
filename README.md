@@ -504,3 +504,64 @@ export default ComponentF
 `
 
 #### useReducer with dataFetching
+4 step
+1. make the necessar imports
+import React, { useReducer, useEffect } from 'react';
+import axios from 'axios';
+
+2. declare the state and function
+const initialState = {
+    loading: true,
+    error: "",
+    post: {}
+}
+
+const reducer = (state, action) => {
+    switch(action.type) {
+        case 'FETCH_SUCCESS':
+            return {
+                loading: false,
+                post: action.payload,
+                error: ''
+            }
+        case 'FETCH_FAIL':
+            return {
+                loading: false,
+                post: {},
+                error: 'Something went wrong'
+            }
+        default:
+            return state
+    }
+}
+
+3. invoking useReducer and useEffect
+const[state, dispatch] = useReducer(reducer, initialState)
+
+useEffect(() => {
+    axios
+        .get('https://jsonplaceholder.typicode.com/posts/1')
+        .then(res => {
+            dispatch({
+                type: 'FETCH_SUCCESS',
+                payload: res.data
+            })
+        })
+        .catch(err => {
+            dispatch({
+                type: 'FETCH_FAIL'
+            })
+}
+
+render jsx
+{state.loading ? "Loading" : state.post.title}
+{state.error ? state.error : null}
+
+#### useState vs useReducer
+Scenario                     useState              useReducer
+1. Typeof state          Number, string, Boolean   Object, Array
+2. Number of State transition -- One or Two --     TooMany
+3. Related state transition -- No           --     Yes
+4. Business Logic            -- No business logic  --- Complex business logic
+5. Loca vs global       -- Local             -- global
+           
