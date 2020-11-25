@@ -565,3 +565,47 @@ Scenario                     useState              useReducer
 4. Business Logic            -- No business logic  --- Complex business logic
 5. Loca vs global       -- Local             -- global
            
+### useCallBack
+--Performance optimization
+--Every Component will render when props and state change
+--When we have more component and then it will every time then we have performance issues
+--To improve performance we have to restrict render to only component to which need to re-render
+--we can use React.memo
+--React.memo is high order component that will prevent functional component from being re-render if its props and state do not change
+
+--React.memo is nothing to do with hooks it is there in react version 16.6
+--wrap the componet with react.memo
+
+export default React.memo(Count);
+
+###### what is useCallback Hook
+useCallBack is a hook that will return a memoized version of the callback function that only changes if one of the dependencies has changed.
+
+###### why?
+it is useful when passing callback to optimized child components that rely on reference equality to prevent unnecessary renders.
+
+###### How??
+import from react
+call the useCallBack - 1st parameter is callback and 2nd parameter is [dependencies]
+
+const incrementAge = useCallback(() => {
+    setAge(age + 1)
+}, [age])
+
+### useMemo
+-- it also used for performance optimization
+--useMemo is hook that will compute the cached value of one of the dependencies has changed.
+
+useMemo and useCallBack is very similar
+Difference is useCallback cached provided function instance itself whereas usememo invoke provided function and cached their result.
+
+if need to cached the function use useCallBack
+if we need to cached result of function use useMemo.
+
+### useRef
+This makes it possible to access the dom directly within functional component.
+
+1. import it from react --> import React, { useEffect , useRef } from 'react'
+2. create the ref -- > const inputRef = useRef(null);
+3. prodive in ref in node -- > <input ref={inputRef} type="text" />
+
